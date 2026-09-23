@@ -1,10 +1,13 @@
-import Header from "./assets/Header";
+import Footer from "./Footer";
+import Header from "./Header";
+import HeroSection from "./HeroSection";
 
 function App() {
   return (
     <>
-      <p className="text-5xl font-bold">hello</p>
       <Header />
+      <HeroSection />
+      <Footer />
     </>
   );
 }

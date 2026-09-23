@@ -1,4 +1,4 @@
-import taskerLogo from "./tasker-logo.png";
+import taskerLogo from "./assets/tasker-logo.svg";
 export default function Header() {
   return (
     <nav className="py-6 md:py-8 fixed top-0 w-full !bg-[#8a97b5] z-50">
