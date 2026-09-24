@@ -16,14 +16,32 @@ export default function TaskBoard() {
   };
   const [tasks, setTasks] = useState([defaultTask]);
   const [showAdModal, setShowAdModal] = useState(false);
-  function handleAddTask(newTask) {
-    setTasks([...tasks, newTask]);
+  const [taskToUpdate, setTasToUpdate] = useState();
+  function handleAddTask(newTask, isAdd) {
+    if (isAdd) {
+      setTasks([...tasks, newTask]);
+    } else {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === newTask.id) {
+            return newTask;
+          }
+          return tasks;
+        }),
+      );
+    }
     setShowAdModal(false);
     console.log(tasks);
   }
+  function handleEditTask(task) {
+    setTasToUpdate(task);
+    setShowAdModal(true);
+  }
   return (
     <section className="mb-20" id="tasks">
-      {showAdModal && <AddTaskModal onSave={handleAddTask} />}
+      {showAdModal && (
+        <AddTaskModal onSave={handleAddTask} taskToUpdate={taskToUpdate} />
+      )}
       <div className="container">
         {/* <!-- Search Box --> */}
         <div className="p-2 flex justify-end">
@@ -40,7 +58,7 @@ export default function TaskBoard() {
             />
           </div>
           <div className="overflow-auto">
-            <TaskList tasks={tasks} />
+            <TaskList tasks={tasks} onEdit={handleEditTask} />
           </div>
         </div>
       </div>
