@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AddTaskModal from "./AddTaskModal";
 import SearchTask from "./SearchTask";
 import TaskActions from "./TaskActions";
 import TaskList from "./TaskList";
@@ -14,8 +15,15 @@ export default function TaskBoard() {
     isFavorite: true,
   };
   const [tasks, setTasks] = useState([defaultTask]);
+  const [showAdModal, setShowAdModal] = useState(false);
+  function handleAddTask(newTask) {
+    setTasks([...tasks, newTask]);
+    setShowAdModal(false);
+    console.log(tasks);
+  }
   return (
     <section className="mb-20" id="tasks">
+      {showAdModal && <AddTaskModal onSave={handleAddTask} />}
       <div className="container">
         {/* <!-- Search Box --> */}
         <div className="p-2 flex justify-end">
@@ -25,7 +33,11 @@ export default function TaskBoard() {
         <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
           <div className="mb-14 items-center justify-between sm:flex">
             <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
-            <TaskActions />
+            <TaskActions
+              onAddClick={() => {
+                setShowAdModal(true);
+              }}
+            />
           </div>
           <div className="overflow-auto">
             <TaskList tasks={tasks} />
