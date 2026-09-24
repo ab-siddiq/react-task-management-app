@@ -41,6 +41,14 @@ export default function TaskBoard() {
     setShowAdModal(false);
     setTasToUpdate(null);
   }
+  function handleDeleteTask(taskId) {
+    const taskAfterDeleter = tasks.filter((task) => task.id != taskId);
+    setTasks(taskAfterDeleter);
+  }
+  function handleDeleteAllClick() {
+    tasks.length = 0;
+    setTasks([...tasks]);
+  }
   return (
     <section className="mb-20" id="tasks">
       {showAdModal && (
@@ -63,10 +71,15 @@ export default function TaskBoard() {
               onAddClick={() => {
                 setShowAdModal(true);
               }}
+              onDeleteAllClick={handleDeleteAllClick}
             />
           </div>
           <div className="overflow-auto">
-            <TaskList tasks={tasks} onEdit={handleEditTask} />
+            <TaskList
+              tasks={tasks}
+              onEdit={handleEditTask}
+              onDelete={handleDeleteTask}
+            />
           </div>
         </div>
       </div>
