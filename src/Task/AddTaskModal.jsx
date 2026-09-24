@@ -11,12 +11,12 @@ export default function AddTaskModal({ onSave, taskToUpdate, onCloseClick }) {
     },
   );
   const [isAdd, setIsAdd] = useState(Object.is(taskToUpdate, null));
+  console.log(isAdd);
   const handleChange = (e) => {
     const name = e.target.name;
     let value = e.target.value;
     if (name === "tags") {
       value = value.split(",");
-      console.log(value);
     }
     setTask({
       ...task,
